@@ -45,7 +45,7 @@ loginButton.addEventListener("click", function (event) {
 
   if (checkPW) {
     window.localStorage.setItem("currentUser", JSON.stringify(users[userIndex]))
-    // window.location.href = "/src/TasksPage/tasksPage.html";
+    window.location.href = "/src/TasksPage/tasksPage.html";
 
   } else {
     msgLogin.textContent = "E-mail e/ou senha invalidos";
