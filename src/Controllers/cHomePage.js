@@ -1,11 +1,11 @@
 const usersFromStorage = JSON.parse(window.localStorage.getItem("users"));
 
-const msgLogin = document.querySelector(".form-login .msg");
+const msgLogin = document.querySelector(".Form-Login .msg");
 const loginButton = document.querySelector("#login-acc-btn");
 const loginEmail = document.querySelector("#Login-InputEmail");
 const loginPW = document.querySelector("#Login-InputPassword");
 
-const msgRegister = document.querySelector(".form-register .msg");
+const msgRegister = document.querySelector(".Form-Register .msg");
 const createAccButton = document.querySelector("#create-acc-btn");
 const createAccEmail = document.querySelector("#Register-InputEmail");
 const createAccName = document.querySelector("#Register-InputName");
@@ -29,32 +29,38 @@ if (usersFromStorage !== null) {
 }
 
 loginButton.addEventListener("click", function (event) {
-  event.preventDefault();
 
   const email = loginEmail.value;
   const password = loginPW.value;
 
   const userIndex = users.findIndex(user => user.email === email);
 
-
   if (userIndex === -1) {
     msgLogin.textContent = "E-mail e/ou senha invalidos";
-  }
-
-  const checkPW = users[userIndex].password === password;
-
-  if (checkPW) {
-    window.localStorage.setItem("currentUser", JSON.stringify(users[userIndex]))
-    window.location.href = "/src/TasksPage/tasksPage.html";
 
   } else {
-    msgLogin.textContent = "E-mail e/ou senha invalidos";
-  }
+    const checkPW = users[userIndex].password === password;
 
+    if (checkPW) {
+      window.localStorage.setItem("currentUser", JSON.stringify(users[userIndex]))
+      window.location.href = "/src/TasksPage/tasksPage.html";
+
+    } else {
+      msgLogin.textContent = "E-mail e/ou senha invalidos";
+    }
+  }
 })
 
+loginEmail.addEventListener("input", function (event) {
+  msgLogin.textContent = "";
+})
+
+loginPW.addEventListener("input", function (event) {
+  msgLogin.textContent = "";
+})
+
+
 createAccButton.addEventListener("click", function (event) {
-  event.preventDefault();
 
   const name = createAccName.value.trim();
   const email = createAccEmail.value.trim();
