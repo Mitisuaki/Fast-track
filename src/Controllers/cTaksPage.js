@@ -19,6 +19,37 @@ if (currentUser === null) {
 
 }
 
+
+
+
+
+
+// ------------------------ Testes --------------------------------------------------------------
+
+
+const exampleModal = document.getElementById('exampleModal')
+if (exampleModal) {
+  exampleModal.addEventListener('show.bs.modal', event => {
+
+    const button = event.relatedTarget;
+    const task = button.innerText;
+    const description = button.getAttribute('data-bs-description');
+
+
+
+    const modalTitle = exampleModal.querySelector('.modal-title');
+    const modalBodyInput = exampleModal.querySelector('textarea');
+
+
+    modalTitle.textContent = `${task}`
+    modalBodyInput.value = description
+  })
+}
+
+
+
+
+
 console.log(taskTableBody.children.length)
 
 // Teste com setInterval

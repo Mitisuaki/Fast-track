@@ -13,7 +13,7 @@ body {
   background-color: #19125e !important;
   background-image: url(../Assets/Imgs/tasks-bg.png);
   background-size: cover;
-  background-position: right bottom;
+  background-position: right top;
 }
 
 .btn-sair:hover {
@@ -71,7 +71,6 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 
 .btn-light {
   color: white;
-  width: 75px;
   background-image: linear-gradient(to right, var(--btn-warning-bg-color1), var(--btn-warning-bg-color2));
   font-size: 15px;
   border-color: white;
