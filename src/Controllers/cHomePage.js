@@ -1,15 +1,15 @@
 const usersFromStorage = JSON.parse(window.localStorage.getItem("users"));
 
-const msgLogin = document.querySelector(".Form-Login .msg");
+const msgLogin = document.querySelector(".form-login .msg");
 const loginButton = document.querySelector("#login-acc-btn");
-const loginEmail = document.querySelector("#Login-InputEmail");
-const loginPW = document.querySelector("#Login-InputPassword");
+const loginEmail = document.querySelector("#login-input-email");
+const loginPW = document.querySelector("#login-input-password");
 
-const msgRegister = document.querySelector(".Form-Register .msg");
+const msgRegister = document.querySelector(".form-register .msg");
 const createAccButton = document.querySelector("#create-acc-btn");
-const createAccEmail = document.querySelector("#Register-InputEmail");
-const createAccName = document.querySelector("#Register-InputName");
-const createAccPW = document.querySelector("#Register-InputPassword");
+const createAccName = document.querySelector("#register-input-name");
+const createAccEmail = document.querySelector("#register-input-email");
+const createAccPW = document.querySelector("#register-input-password");
 
 const users = [
   {
@@ -95,5 +95,16 @@ createAccButton.addEventListener("click", function (event) {
   }
 })
 
+createAccName.addEventListener("input", function (event) {
+  msgRegister.textContent = "";
+})
+
+createAccEmail.addEventListener("input", function (event) {
+  msgRegister.textContent = "";
+})
+
+createAccPW.addEventListener("input", function (event) {
+  msgRegister.textContent = "";
+})
 
 

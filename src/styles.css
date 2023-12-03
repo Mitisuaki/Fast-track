@@ -1,24 +1,42 @@
+:root {
+  --img-border: #b13ceb;
+  --login-bg-color1: #4a3a98;
+  --login-bg-color2: #160f6a;
+  --btn-primary-bg-color1: #a839e8;
+  --btn-primary-bg-color2: #561dcd;
+}
+
 html {
   height: 100%;
 }
 
 body {
   height: 100%;
-  background-image: linear-gradient(to bottom right, #22186e, #020021);
+  background-image: url(Assets/Imgs/background.png);
   color: white;
   font-family: 'Akshar', sans-serif;
 }
 
-body main img {
+#login-img {
   height: 600px;
 }
 
-body main div .border-primary-subtle {
-  border-color: #b13ceb !important;
+#acc-area {
+  height: 580px;
+}
+
+#login-img {
+  border-color: var(--img-border) !important;
+}
+
+@media (max-width: 991.98px) {
+  #login-img {
+    border-color: transparent !important;
+  }
 }
 
 .form-login {
-  background-image: linear-gradient(to bottom right, #4a3a98, #160f6a);
+  background-image: linear-gradient(to bottom right, var(--login-bg-color1), var(--login-bg-color2));
 }
 
 .form-control::placeholder {
@@ -28,7 +46,7 @@ body main div .border-primary-subtle {
 
 .btn-primary {
   width: 125px;
-  background-image: linear-gradient(to right, #a839e8, #561dcd);
+  background-image: linear-gradient(to right, var(--btn-primary-bg-color1), var(--btn-primary-bg-color2));
   font-size: 20px;
   padding-top: 1.5px;
   padding-bottom: 1.5px;
@@ -40,5 +58,5 @@ body main div .border-primary-subtle {
   transition-duration: 100ms;
   background: white;
   border-color: white;
-  color: #561dcd;
+  color: var(--btn-primary-bg-color2);
 }
