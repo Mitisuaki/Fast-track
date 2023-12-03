@@ -1,19 +1,19 @@
 :root {
   --navbar-border: #b13ceb;
-  --create-task-bg-color: #52429f;
+  --bg-color: 82, 66, 159;
+  --btn-warning-bg-color1: #a839e8;
+  --btn-warning-bg-color2: #561dcd;
 }
 
 body {
   font-family: 'Akshar', sans-serif;
 }
 
-/* main {
-  width: 90% !important;
-} */
-
 .bg-body {
+  background-color: #19125e !important;
   background-image: url(../Assets/Imgs/tasks-bg.png);
   background-size: cover;
+  background-position: right bottom;
 }
 
 .btn-sair:hover {
@@ -21,7 +21,7 @@ body {
 }
 
 .navbar-border {
-  border-color: var(--navbar-border) !important;
+  border-color: rgba(var(--navbar-bo, 1)rder) !important;
 }
 
 .form-control::placeholder {
@@ -34,7 +34,7 @@ body {
 }
 
 .bg-create-task {
-  background-color: var(--create-task-bg-color);
+  background-color: rgba(var(--bg-color), .5);
 }
 
 #create-task-description {
@@ -53,4 +53,59 @@ label {
 input[type="date"]::-webkit-calendar-picker-indicator,
 input[type="time"]::-webkit-calendar-picker-indicator {
   color-scheme: dark;
+}
+
+#tasks-area {
+  border-color: rgba(var(--bg-color), .8) !important;
+}
+
+.table-dark {
+  --bs-table-bg: transparent !important;
+  --bs-table-hover-bg: rgba(var(--bg-color), .5);
+  --bs-table-border-color: white;
+}
+
+#tr-tarefa {
+  cursor: pointer;
+}
+
+.btn-light {
+  color: white;
+  width: 75px;
+  background-image: linear-gradient(to right, var(--btn-warning-bg-color1), var(--btn-warning-bg-color2));
+  font-size: 15px;
+  border-color: white;
+  transition: all 600ms ease;
+}
+
+.btn-light:hover {
+  transition-duration: 100ms;
+  background: white;
+  border-color: white;
+  color: var(--btn-warning-bg-color2);
+  border-color: var(--btn-warning-bg-color2);
+}
+
+.btn-dark {
+  border-color: white;
+  background-color: rgba(var(--bg-color), .8);
+}
+
+.btn-dark:hover {
+  border-color: white;
+  background-color: white;
+  color: rgb(var(--bg-color));
+}
+
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #a3a3be;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #4d3a97;
+  -webkit-box-shadow: inset 6px 0 6px rgba(0, 0, 0, 0.5);
 }
