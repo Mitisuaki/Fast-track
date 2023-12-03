@@ -1,7 +1,56 @@
-body .navbar {
-  background-color: rgba(0, 0, 0, 0.7);
+:root {
+  --navbar-border: #b13ceb;
+  --create-task-bg-color: #52429f;
 }
 
-.navbar-brand {
-  color: white !important;
+body {
+  font-family: 'Akshar', sans-serif;
+}
+
+/* main {
+  width: 90% !important;
+} */
+
+.bg-body {
+  background-image: url(../Assets/Imgs/tasks-bg.png);
+  background-size: cover;
+}
+
+.btn-sair:hover {
+  text-decoration: underline;
+}
+
+.navbar-border {
+  border-color: var(--navbar-border) !important;
+}
+
+.form-control::placeholder {
+  color: white;
+  opacity: .5;
+}
+
+.add-tarefa {
+  font-size: 25px;
+}
+
+.bg-create-task {
+  background-color: var(--create-task-bg-color);
+}
+
+#create-task-description {
+  resize: vertical;
+  max-height: 150px;
+}
+
+label {
+  width: 75px;
+}
+
+#label-fix {
+  width: 160px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  color-scheme: dark;
 }

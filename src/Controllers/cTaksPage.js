@@ -1,7 +1,7 @@
-const userName = document.querySelector(".userName");
 const currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
+const userName = document.querySelector(".username");
 
-const exit = document.querySelector(".navbar div a")
+const exit = document.querySelector(".btn-sair");
 
 
 exit.addEventListener("click", function (event) {

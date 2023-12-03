@@ -37,6 +37,7 @@ body {
 
 .form-login {
   background-image: linear-gradient(to bottom right, var(--login-bg-color1), var(--login-bg-color2));
+  background-size: cover;
 }
 
 .form-control::placeholder {
