@@ -1,27 +1,21 @@
-const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-const userName = document.querySelector(".username");
-const exit = document.querySelector(".btn-sair");
-const modalDescription = document.getElementById("modal-description");
-const tasks = localStorage.getItem("tasks");
-let nextId = +localStorage.getItem("nextId");
+console.log(localStorage)
 
 const formCreateTask = document.querySelector("#form-create-task")
 const taskTableBody = document.querySelector("#task-table-body");
 const createTaskBtn = document.querySelector("#create-task-btn");
 const msgCreateTask = document.querySelector("#form-create-task .msg");
-
+const exit = document.querySelector(".btn-sair");
+const modalDescription = document.getElementById("modal-description");
+const tasks = localStorage.getItem("tasks");
+let nextId = +localStorage.getItem("nextId");
+const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+const userName = document.querySelector(".username");
 const task = formCreateTask.querySelector("#create-task-task");
-const userTasks = JSON.parse(tasks).filter(t => t.userEmail === currentUser.email);
-
 const startDay = formCreateTask.querySelector("#create-task-start-day");
 const startTime = formCreateTask.querySelector("#create-task-start-time");
 const endDay = formCreateTask.querySelector("#create-task-end-day");
 const endTime = formCreateTask.querySelector("#create-task-end-time");
 const description = formCreateTask.querySelector("#create-task-description");
-
-
-console.log(localStorage)
-
 
 const validateInputs = (task, startDay, startTime, endDay, endTime, description) => {
   if (!task || !startDay || !startTime || !endDay || !endTime || !description) {
@@ -30,7 +24,6 @@ const validateInputs = (task, startDay, startTime, endDay, endTime, description)
     return true;
   }
 }
-
 const clearInputs = () => {
   task.value = "";
   startDay.value = "";
@@ -39,7 +32,6 @@ const clearInputs = () => {
   endTime.value = "";
   description.value = "";
 }
-
 const clickEditFunction = (btn) => {
   const tr = btn.parentElement.parentElement;
 
@@ -69,6 +61,7 @@ if (!nextId && !tasks) {
   localStorage.setItem("tasks", JSON.stringify([]));
 }
 
+const userTasks = JSON.parse(tasks).filter(t => t.userEmail === currentUser.email);
 
 if (userTasks.length === 0) {
 
@@ -85,6 +78,9 @@ if (userTasks.length === 0) {
   taskArea.appendChild(makeAtask);
 
 }
+
+
+
 userTasks.forEach(t => {
 
   const day1 = `${t.startDay.replaceAll("-", ",")},${t.startTime.replaceAll("-", ",")}`;
@@ -133,9 +129,13 @@ userTasks.forEach(t => {
   taskTableBody.appendChild(newTr);
 });
 
+
+
 exit.addEventListener("click", event => {
   localStorage.setItem("currentUser", null)
 });
+
+
 
 modalDescription.addEventListener("show.bs.modal", event => {
 
@@ -186,28 +186,3 @@ createTaskBtn.addEventListener("click", event => {
 
   }
 });
-
-// const updateTaskBtn = document.querySelector(".update-task-btn");
-
-// updateTaskBtn.addEventListener("click", event => {
-
-//   const target = event.target;
-//   const tr = target.parentElement.parentElement;
-
-//   const currentTask = userTasks.find(t => +t.id === +tr.id);
-
-//   task.value = currentTask.task;
-//   startDay.value = currentTask.startDay;
-//   startTime.value = currentTask.startTime;
-//   endDay.value = currentTask.endDay;
-//   endTime.value = currentTask.endTime;
-//   description.value = currentTask.description;
-
-
-// })
-
-
-
-
-
-
