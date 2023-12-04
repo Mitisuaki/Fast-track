@@ -20,12 +20,16 @@
     crossorigin="anonymous"></script>
 </head>
 
-<body class="d-flex justify-content-center align-items-center">
+<body class="d-flex">
+  <div class="no-area">
+    <button class="btn btn-dark" id="clean-local-storage" onclick="localStorage.clear(); location.reload();">Clear Local
+      Storage</button>
+  </div>
 
-  <main class="container d-flex justify-content-center align-items-centers">
+  <main class="container d-flex justify-content-center align-items-centers align-self-center">
 
 
-    <div class="container container d-inline d-lg-flex justify-content-center align-items-center m-3 pt-5 pb-5 ">
+    <div class="container d-inline d-lg-flex justify-content-center align-items-center m-3 pt-5 pb-5 ">
 
       <div class="container d-flex justify-content-center border-end border-1 border-primary-subtle" id="login-img">
         <img src="Assets/Imgs/Login page.png" alt="Login DevPlan">

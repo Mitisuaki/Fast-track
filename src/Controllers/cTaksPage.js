@@ -1,20 +1,42 @@
+const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+const userName = document.querySelector(".username");
+
+if (currentUser === null) {
+  alert("Para acessar esta página você precisa realizar o login");
+  window.location.href = "../index.html";
+
+} else {
+  userName.textContent = `Seja bem-vindo(a) ${currentUser.name}`;
+}
+
+let tasks = localStorage.getItem("tasks");
+let nextId = +localStorage.getItem("nextId");
+
+if (!nextId && !tasks) {
+  localStorage.setItem("nextId", 0);
+  localStorage.setItem("tasks", JSON.stringify([]));
+
+  nextId = +localStorage.getItem("nextId");
+  tasks = localStorage.getItem("tasks");
+} else if (!tasks) {
+  localStorage.setItem("tasks", JSON.stringify([]));
+  tasks = localStorage.getItem("tasks");
+}
+
 const formCreateTask = document.querySelector("#form-create-task")
 const taskTableBody = document.querySelector("#task-table-body");
 const createTaskBtn = document.querySelector("#create-task-btn");
 const msgCreateTask = document.querySelector("#form-create-task .msg");
 const exit = document.querySelector(".btn-sair");
 const modalDescription = document.getElementById("modal-description");
-const tasks = localStorage.getItem("tasks");
-let nextId = +localStorage.getItem("nextId");
-const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-const userName = document.querySelector(".username");
+
+const btnsArea = document.querySelector("#buttons-area");
 const task = formCreateTask.querySelector("#create-task-task");
 const startDay = formCreateTask.querySelector("#create-task-start-day");
 const startTime = formCreateTask.querySelector("#create-task-start-time");
 const endDay = formCreateTask.querySelector("#create-task-end-day");
 const endTime = formCreateTask.querySelector("#create-task-end-time");
 const description = formCreateTask.querySelector("#create-task-description");
-const btnsArea = document.querySelector("#buttons-area");
 
 const createTaskBtnInnerHtml = `
 <div class="d-flex justify-content-center mt-2 mb-3">
@@ -231,22 +253,8 @@ const clickEditFunction = (btn) => {
   fixEditBtns(currentTask);
 };
 
-if (currentUser === null) {
-  alert("Para acessar esta página você precisa realizar o login");
-  window.location.href = "../index.html";
-
-} else {
-  userName.textContent = `Seja bem-vindo(a) ${currentUser.name}`;
-}
-
-if (!nextId && !tasks) {
-  localStorage.setItem("nextId", 0);
-  localStorage.setItem("tasks", JSON.stringify([]));
-} else if (!tasks) {
-  localStorage.setItem("tasks", JSON.stringify([]));
-}
-
 const userTasks = JSON.parse(tasks).filter(t => t.userEmail === currentUser.email);
+
 if (userTasks.length === 0) {
 
   const taskArea = document.querySelector("#tasks-area");
@@ -265,6 +273,8 @@ if (userTasks.length === 0) {
 } else {
   populateTable();
 }
+
+
 
 exit.addEventListener("click", () => {
   localStorage.setItem("currentUser", null)

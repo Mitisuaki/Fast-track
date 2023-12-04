@@ -17,6 +17,7 @@ body {
   font-family: 'Akshar', sans-serif;
 }
 
+
 #login-img {
   height: 600px;
 }
@@ -60,4 +61,14 @@ body {
   background: white;
   border-color: white;
   color: var(--btn-primary-bg-color2);
+}
+
+.no-area {
+  height: 0;
+  width: 0;
+}
+
+#clean-local-storage {
+  min-width: 120px !important;
+  font-size: 13px;
 }
