@@ -65,7 +65,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   --bs-table-border-color: white;
 }
 
-#tr-tarefa {
+.tr-tarefa {
   cursor: pointer;
 }
 
@@ -96,6 +96,21 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   color: rgb(var(--bg-color));
 }
 
+.btn-modal {
+  color: #212529;
+  background-color: white;
+  font-size: 15px;
+  border-color: white;
+  transition: all 600ms ease;
+}
+
+.btn-modal:hover {
+  transition-duration: 100ms;
+  background: #212529;
+  border-color: white;
+  color: white;
+}
+
 ::-webkit-scrollbar {
   width: 15px;
 }
@@ -107,4 +122,9 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 ::-webkit-scrollbar-thumb {
   background-color: #4d3a97;
   -webkit-box-shadow: inset 6px 0 6px rgba(0, 0, 0, 0.5);
+}
+
+.modal textarea {
+  min-height: 100px;
+  max-height: 200px;
 }

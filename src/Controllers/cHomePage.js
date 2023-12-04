@@ -23,12 +23,12 @@ if (usersFromStorage !== null) {
 
   usersFromStorage.map(user => {
     if (users.findIndex(u => u.email === user.email) === -1) {
-      users.push(user)
+      users.push(user);
     }
   })
 }
 
-loginButton.addEventListener("click", function (event) {
+loginButton.addEventListener("click", event => {
 
   const email = loginEmail.value;
   const password = loginPW.value;
@@ -51,16 +51,16 @@ loginButton.addEventListener("click", function (event) {
   }
 })
 
-loginEmail.addEventListener("input", function (event) {
+loginEmail.addEventListener("input", event => {
   msgLogin.textContent = "";
 })
 
-loginPW.addEventListener("input", function (event) {
+loginPW.addEventListener("input", event => {
   msgLogin.textContent = "";
 })
 
 
-createAccButton.addEventListener("click", function (event) {
+createAccButton.addEventListener("click", event => {
 
   const name = createAccName.value.trim();
   const email = createAccEmail.value.trim();
@@ -81,12 +81,10 @@ createAccButton.addEventListener("click", function (event) {
       password
     };
 
-    users.push(user)
+    users.push(user);
 
-    window.localStorage.setItem("users", JSON.stringify(users))
-    window.localStorage.setItem("currentUser", JSON.stringify(user))
-
-    console.log(users[userIndex]);
+    window.localStorage.setItem("users", JSON.stringify(users));
+    window.localStorage.setItem("currentUser", JSON.stringify(user));
 
     window.location.href = "/src/TasksPage/tasksPage.html";
 
@@ -95,15 +93,15 @@ createAccButton.addEventListener("click", function (event) {
   }
 })
 
-createAccName.addEventListener("input", function (event) {
+createAccName.addEventListener("input", event => {
   msgRegister.textContent = "";
 })
 
-createAccEmail.addEventListener("input", function (event) {
+createAccEmail.addEventListener("input", event => {
   msgRegister.textContent = "";
 })
 
-createAccPW.addEventListener("input", function (event) {
+createAccPW.addEventListener("input", event => {
   msgRegister.textContent = "";
 })
 

@@ -48,12 +48,15 @@
           <span class="add-tarefa">Adicionar nova tarefa</span>
         </div>
 
-        <form id="create-task" class="container d-flex flex-column" onsubmit="return false">
+        <form id="form-create-task" class="container d-flex flex-column" onsubmit="return false">
 
+          <div class="d-flex justify-content-center mb-2">
+            <div class="msg text-danger"></div>
+          </div>
           <div class="container flex-column">
             <div class="mb-3 d-md-flex">
-              <label for="create-task-title" class="me-2 mb-3 mt-2">Tarefa:</label>
-              <input type="text" class="form-control bg-transparent text-white" id="create-task-title"
+              <label for="create-task-task" class="me-2 mb-3 mt-2">Tarefa:</label>
+              <input type="text" class="form-control bg-transparent text-white" id="create-task-task"
                 placeholder="Tarefa" required>
             </div>
             <div class="mb-3 d-md-flex ">
@@ -78,17 +81,17 @@
           </div>
 
           <div class="d-flex justify-content-center mt-2 mb-3" id="buttons-area">
-            <button id="create-acc-btn" type="submit" class="btn btn-dark">Criar Tarefa</button>
+            <button id="create-task-btn" type="submit" class="btn btn-dark">Criar Tarefa</button>
           </div>
 
           <div class="d-flex flex-column flex-md-row justify-content-center mt-2 mb-3">
-            <button id="create-acc-btn" type="submit" class="btn btn-dark m-1">Alterar
+            <button id="edit-task-btn" type="submit" class="btn btn-dark m-1">Alterar
               Tarefa</button>
-            <button id="create-acc-btn" type="submit" class="btn btn-dark m-1">Marca como
+            <button id="mark-as-done-task-btn" type="submit" class="btn btn-dark m-1">Marca como
               Realizada</button>
-            <button id="create-acc-btn" type="submit" class="btn btn-dark m-1">Excluir
+            <button id="delete-task-btn" type="submit" class="btn btn-dark m-1">Excluir
               Tarefa</button>
-            <button id="create-acc-btn" type="submit" class="btn btn-dark m-1">Cancelar</button>
+            <button id="cancel-task-btn" type="submit" class="btn btn-dark m-1">Cancelar</button>
           </div>
 
         </form>
@@ -96,124 +99,42 @@
       </div>
 
       <div class="container mt-5 border rounded-3 border-4 overflow-x-auto" id="tasks-area">
-        <table class="table table-dark table-hover" id=" tasks-table">
+        <table class="table table-dark table-hover" id="tasks-table">
           <thead class="align-middle">
             <tr>
               <th scope="col">Tarefa</th>
               <th scope="col" class="col-2">Início</th>
               <th scope="col" class="col-2">Término</th>
-              <th scope="col" class="col-1">Status</th>
+              <th scope="col" class="col-2">Status</th>
               <th scope="col" class="col-1">Alterar</th>
             </tr>
           </thead>
 
           <tbody class="align-middle table-group-divider " id="task-table-body">
-            <tr>
-              <td id="tr-tarefa" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-description="Teste">Mark
-              </td>
-              <td>01/01/23 às 15:24</td>
-              <td>01/02/23 às 15:24</td>
-              <td>Em Atraso</td>
-              <td><button class="btn btn-light">Alterar</button></td>
-            </tr>
-            <tr>
-              <td id="tr-tarefa" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-description="Teste">Mark
-              </td>
-              <td>01/01/23 às 15:24</td>
-              <td>01/02/23 às 15:24</td>
-              <td>pendente</td>
-              <td><button class="btn btn-light">Alterar</button></td>
-            </tr>
-            <tr>
-              <td id="tr-tarefa" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-description="Teste">Mark
-              </td>
-              <td>01/01/23 às 15:24</td>
-              <td>01/02/23 às 15:24</td>
-              <td>pendente</td>
-              <td><button class="btn btn-light">Alterar</button></td>
-            </tr>
-            <tr>
-              <td id="tr-tarefa" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-description="Teste">Mark
-              </td>
-              <td>01/01/23 às 15:24</td>
-              <td>01/02/23 às 15:24</td>
-              <td>pendente</td>
-              <td><button class="btn btn-light">Alterar</button></td>
-            </tr>
-            <tr>
-              <td id="tr-tarefa" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-description="Teste">Mark
-              </td>
-              <td>01/01/23 às 15:24</td>
-              <td>01/02/23 às 15:24</td>
-              <td>pendente</td>
-              <td><button class="btn btn-light">Alterar</button></td>
-            </tr>
-            <tr>
-              <td id="tr-tarefa" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-description="Teste">Mark
-              </td>
-              <td>01/01/23 às 15:24</td>
-              <td>01/02/23 às 15:24</td>
-              <td>Em Atraso</td>
-              <td><button class="btn btn-light">Alterar</button></td>
-            </tr>
-            <tr>
-              <td id="tr-tarefa" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-description="Teste">Mark
-              </td>
-              <td>01/01/23 às 15:24</td>
-              <td>01/02/23 às 15:24</td>
-              <td>pendente</td>
-              <td><button class="btn btn-light">Alterar</button></td>
-            </tr>
-            <tr>
-              <td id="tr-tarefa" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-description="Teste">Mark
-              </td>
-              <td>01/01/23 às 15:24</td>
-              <td>01/02/23 às 15:24</td>
-              <td>pendente</td>
-              <td><button class="btn btn-light">Alterar</button></td>
-            </tr>
-            <tr>
-              <td id="tr-tarefa" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-description="Teste">Mark
-              </td>
-              <td>01/01/23 às 15:24</td>
-              <td>01/02/23 às 15:24</td>
-              <td>pendente</td>
-              <td><button class="btn btn-light">Alterar</button></td>
-            </tr>
-            <tr>
-              <td id="tr-tarefa" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-description="Teste"> Mark
-              </td>
-              <td>01/01/23 às 15:24</td>
-              <td>01/02/23 às 15:24</td>
-              <td>pendente</td>
-              <td><button class="btn btn-light">Alterar</button></td>
-            </tr>
           </tbody>
       </div>
 
-      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered fade" id="exampleModal" tabindex="-1"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+      <div class="modal" id="modal-description" tabindex="-1" aria-labelledby="modal-descriptionLabel"
+        aria-hidden="true" data-bs-theme="dark">
+        <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+              <h1 class="modal-title fs-5" id="modal-descriptionLabel"></h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <div class="mb-3">
                 <label for="message-text" class="col-form-label">Descrição:</label>
-                <textarea class="form-control" id="message-text"></textarea>
+                <textarea class="form-control" id="message-text" disabled></textarea>
               </div>
 
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-light me-2" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-light">Alterar Descrição</button>
+              <button type="button" class="btn btn-modal" data-bs-dismiss="modal">Close</button>
             </div>
           </div>
         </div>
       </div>
-
 
   </main>
 
