@@ -43,7 +43,7 @@ loginButton.addEventListener("click", event => {
 
     if (checkPW) {
       window.localStorage.setItem("currentUser", JSON.stringify(users[userIndex]))
-      window.location.href = "../TasksPage/tasksPage.html";
+      window.location.href = "../src/TasksPage/tasksPage.html";
 
     } else {
       msgLogin.textContent = "E-mail e/ou senha invalidos";
@@ -86,7 +86,7 @@ createAccButton.addEventListener("click", event => {
     window.localStorage.setItem("users", JSON.stringify(users));
     window.localStorage.setItem("currentUser", JSON.stringify(user));
 
-    window.location.href = "../TasksPage/tasksPage.html";
+    window.location.href = "../src/TasksPage/tasksPage.html";
 
   } else {
     msgRegister.textContent = "E-mail já cadastrado";
