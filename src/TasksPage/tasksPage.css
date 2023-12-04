@@ -137,3 +137,11 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 .username {
   font-size: 20px;
 }
+
+.modal-title {
+  max-height: 100px;
+}
+
+.modal-head .text-break {
+  width: 90%;
+}
