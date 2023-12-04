@@ -16,6 +16,24 @@ const startTime = formCreateTask.querySelector("#create-task-start-time");
 const endDay = formCreateTask.querySelector("#create-task-end-day");
 const endTime = formCreateTask.querySelector("#create-task-end-time");
 const description = formCreateTask.querySelector("#create-task-description");
+const btnsArea = document.querySelector("#buttons-area");
+
+const createTaskBtnInnerHtml = `
+<div class="d-flex justify-content-center mt-2 mb-3">
+<button id="create-task-btn" type="submit" class="btn btn-dark">Criar Tarefa</button>
+</div>
+ `;
+const editBtnsInnerHtml = `
+<div class="d-flex flex-column flex-md-row justify-content-center mt-2 mb-3">
+<button id="edit-task-btn" type="submit" class="btn btn-dark m-1">Alterar
+  Tarefa</button>
+<button id="mark-as-done-task-btn" type="submit" class="btn btn-dark m-1">Marca como
+  Realizada</button>
+<button id="delete-task-btn" type="submit" class="btn btn-dark m-1">Excluir
+  Tarefa</button>
+<button id="cancel-task-btn" type="submit" class="btn btn-dark m-1">Cancelar</button>
+</div>
+ `;
 
 const validateInputs = (task, startDay, startTime, endDay, endTime, description) => {
   if (!task || !startDay || !startTime || !endDay || !endTime || !description) {
@@ -43,6 +61,44 @@ const clickEditFunction = (btn) => {
   endDay.value = currentTask.endDay;
   endTime.value = currentTask.endTime;
   description.value = currentTask.description;
+
+  btnsArea.innerHTML = editBtnsInnerHtml;
+
+  const editTaskBtn = document.querySelector("#edit-task-btn");
+  const markTaskBtn = document.querySelector("#mark-as-done-task-btn");
+  const deleteTaskBtn = document.querySelector("#delete-task-btn");
+  const cancelTaskBtn = document.querySelector("#cancel-task-btn");
+
+
+  editTaskBtn.addEventListener("click", event => {
+    let hasInvalidInput = false;
+
+    const cancelTaskBtn = document.querySelectorAll("#form-create-task [required]");
+    cancelTaskBtn.forEach(element => {
+      if (!element.value) {
+        hasInvalidInput = true;
+      }
+    });
+
+    if (!hasInvalidInput) {
+      console.log("teste");
+    }
+
+  });
+  markTaskBtn.addEventListener("click", event => {
+    clearInputs();
+    event.preventDefault();
+  });
+  deleteTaskBtn.addEventListener("click", event => {
+    clearInputs();
+    event.preventDefault();
+  });
+  cancelTaskBtn.addEventListener("click", event => {
+    clearInputs();
+    event.preventDefault();
+  });
+
+
 
 };
 
@@ -78,7 +134,6 @@ if (userTasks.length === 0) {
   taskArea.appendChild(makeAtask);
 
 }
-
 
 
 userTasks.forEach(t => {
@@ -186,3 +241,23 @@ createTaskBtn.addEventListener("click", event => {
 
   }
 });
+
+
+
+startDay.addEventListener("change", event => {
+  msgCreateTask.textContent = ""
+});
+
+startTime.addEventListener("change", event => {
+  msgCreateTask.textContent = ""
+});
+
+endDay.addEventListener("change", event => {
+  msgCreateTask.textContent = ""
+});
+
+endTime.addEventListener("change", event => {
+  msgCreateTask.textContent = ""
+});
+
+
