@@ -1,5 +1,3 @@
-console.log(localStorage)
-
 const formCreateTask = document.querySelector("#form-create-task")
 const taskTableBody = document.querySelector("#task-table-body");
 const createTaskBtn = document.querySelector("#create-task-btn");
@@ -23,7 +21,18 @@ const createTaskBtnInnerHtml = `
 <button id="create-task-btn" type="submit" class="btn btn-dark">Criar Tarefa</button>
 </div>
  `;
-const editBtnsInnerHtml = `
+const editBtnsInnerHtmlNR = `
+<div class="d-flex flex-column flex-md-row justify-content-center mt-2 mb-3">
+<button id="edit-task-btn" type="submit" class="btn btn-dark m-1">Alterar
+  Tarefa</button>
+<button id="mark-as-done-task-btn" type="submit" class="btn btn-dark m-1">Marca como
+  não Realizada</button>
+<button id="delete-task-btn" type="submit" class="btn btn-dark m-1">Excluir
+  Tarefa</button>
+<button id="cancel-task-btn" type="submit" class="btn btn-dark m-1">Cancelar</button>
+</div>
+ `;
+const editBtnsInnerHtmlR = `
 <div class="d-flex flex-column flex-md-row justify-content-center mt-2 mb-3">
 <button id="edit-task-btn" type="submit" class="btn btn-dark m-1">Alterar
   Tarefa</button>
@@ -35,13 +44,90 @@ const editBtnsInnerHtml = `
 </div>
  `;
 
-const validateInputs = (task, startDay, startTime, endDay, endTime, description) => {
-  if (!task || !startDay || !startTime || !endDay || !endTime || !description) {
-    return false;
+const populateTable = () => {
+
+  taskTableBody.innerHTML = "";
+
+  userTasks.forEach(t => {
+
+    const day1 = `${t.startDay.replaceAll("-", ",")},${t.startTime.replaceAll("-", ",")}`;
+    const day2 = `${t.endDay.replaceAll("-", ",")}, ${t.endTime.replaceAll("-", ",")}`;
+    const startDate = new Date(day1);
+    const endDate = new Date(day2);
+    const nowDate = new Date();
+
+    const startDateInput = t.startDay.replaceAll("-", "");
+    const startY = startDateInput.slice(0, 4);
+    const startM = startDateInput.slice(4, 6);
+    const startD = startDateInput.slice(6, 8);
+    const endDateInput = t.endDay.replaceAll("-", "");
+    const endY = endDateInput.slice(0, 4);
+    const endM = endDateInput.slice(4, 6);
+    const endD = endDateInput.slice(6, 8);
+
+    const newTr = document.createElement("tr");
+
+    newTr.innerHTML = `
+    <td class="tr-tarefa" data-bs-toggle="modal" data-bs-target="#modal-description" description="${t.description}">
+    ${t.task}
+    </td>
+    <td>${startD}/${startM}/${startY} às ${t.startTime}</td>
+    <td>${endD}/${endM}/${endY} às ${t.endTime}</td>
+    <td>${t.status}</td>
+    <td><button class="btn btn-light update-task-btn" tr-id="${t.id}" onclick="clickEditFunction(this)">Alterar</button></td>
+    `;
+
+
+    newTr.id = t.id;
+
+    const status = newTr.querySelector(":nth-child(4)");
+
+    if (status.innerText !== "Realizada") {
+
+      if (startDate > nowDate) {
+        status.innerText = "Pendente";
+      } else if (startDate < nowDate && nowDate < endDate) {
+        status.innerText = "Em andamento";
+      } else {
+        status.innerText = "Em atraso";
+      }
+    }
+
+    taskTableBody.appendChild(newTr);
+  });
+
+}
+
+
+const validateInputs = () => {
+  let hasInvalidInput = false;
+  const validate = document.querySelectorAll("#form-create-task [required]");
+  validate.forEach(element => {
+    if (!element.value) {
+      hasInvalidInput = true;
+    }
+  });
+
+  if (!hasInvalidInput) {
+    return true
   } else {
-    return true;
+    return false
+  }
+};
+
+const validateDateInputs = () => {
+  const day1 = `${startDay.value.replace("-", ",")},${startTime.value.replace("-", ",")}`;
+  const day2 = `${endDay.value.replace("-", ",")}, ${endTime.value.replace("-", ",")}`;
+  const startDate = new Date(day1);
+  const endDate = new Date(day2);
+
+  if (startDate > endDate) {
+    return false
+  } else {
+    return true
   }
 }
+
 const clearInputs = () => {
   task.value = "";
   startDay.value = "";
@@ -49,7 +135,77 @@ const clearInputs = () => {
   endDay.value = "";
   endTime.value = "";
   description.value = "";
-}
+};
+
+const fixEditBtns = (currentTask) => {
+  const editTaskBtn = document.querySelector("#edit-task-btn");
+  const markTaskBtn = document.querySelector("#mark-as-done-task-btn");
+  const deleteTaskBtn = document.querySelector("#delete-task-btn");
+  const cancelTaskBtn = document.querySelector("#cancel-task-btn");
+
+  editTaskBtn.addEventListener("click", () => {
+    const validInputs = validateInputs();
+
+    if (validInputs) {
+
+      if (!validateDateInputs()) {
+        msgCreateTask.textContent = "Por favor entre duas datas validas, pois o dia/horário de término não pode ser igual ou anterior ao de início";
+      } else {
+        currentTask.task = task.value;
+        currentTask.startDay = startDay.value;
+        currentTask.startTime = startTime.value;
+        currentTask.endDay = endDay.value;
+        currentTask.endTime = endTime.value;
+        currentTask.description = description.value;
+
+
+        const tasksEdited = JSON.parse(tasks).map(t => {
+          if (t.id === currentTask.id) {
+            t = currentTask;
+          }
+          return t;
+        });
+
+        localStorage.setItem("tasks", JSON.stringify(tasksEdited));
+        location.reload();
+      }
+    }
+
+  });
+  markTaskBtn.addEventListener("click", () => {
+
+    if (!currentTask.status) {
+      currentTask.status = "Realizada";
+    } else {
+      currentTask.status = undefined;
+    }
+
+    const tasksEdited = JSON.parse(tasks).map(t => {
+      if (t.id === currentTask.id) {
+        t = currentTask;
+      }
+      return t;
+    });
+
+    localStorage.setItem("tasks", JSON.stringify(tasksEdited));
+    location.reload();
+
+  });
+  deleteTaskBtn.addEventListener("click", () => {
+
+    const tasksEdited = JSON.parse(tasks).filter(t => t.id !== currentTask.id);
+
+    console.log(tasksEdited);
+
+    localStorage.setItem("tasks", JSON.stringify(tasksEdited));
+    location.reload();
+
+  });
+  cancelTaskBtn.addEventListener("click", () => {
+    location.reload();
+  });
+};
+
 const clickEditFunction = (btn) => {
   const tr = btn.parentElement.parentElement;
 
@@ -62,44 +218,17 @@ const clickEditFunction = (btn) => {
   endTime.value = currentTask.endTime;
   description.value = currentTask.description;
 
-  btnsArea.innerHTML = editBtnsInnerHtml;
+  if (currentTask.status === "Realizada") {
 
-  const editTaskBtn = document.querySelector("#edit-task-btn");
-  const markTaskBtn = document.querySelector("#mark-as-done-task-btn");
-  const deleteTaskBtn = document.querySelector("#delete-task-btn");
-  const cancelTaskBtn = document.querySelector("#cancel-task-btn");
+    btnsArea.innerHTML = editBtnsInnerHtmlNR;
 
+  } else {
 
-  editTaskBtn.addEventListener("click", event => {
-    let hasInvalidInput = false;
+    btnsArea.innerHTML = editBtnsInnerHtmlR;
 
-    const cancelTaskBtn = document.querySelectorAll("#form-create-task [required]");
-    cancelTaskBtn.forEach(element => {
-      if (!element.value) {
-        hasInvalidInput = true;
-      }
-    });
+  }
 
-    if (!hasInvalidInput) {
-      console.log("teste");
-    }
-
-  });
-  markTaskBtn.addEventListener("click", event => {
-    clearInputs();
-    event.preventDefault();
-  });
-  deleteTaskBtn.addEventListener("click", event => {
-    clearInputs();
-    event.preventDefault();
-  });
-  cancelTaskBtn.addEventListener("click", event => {
-    clearInputs();
-    event.preventDefault();
-  });
-
-
-
+  fixEditBtns(currentTask);
 };
 
 if (currentUser === null) {
@@ -118,7 +247,6 @@ if (!nextId && !tasks) {
 }
 
 const userTasks = JSON.parse(tasks).filter(t => t.userEmail === currentUser.email);
-
 if (userTasks.length === 0) {
 
   const taskArea = document.querySelector("#tasks-area");
@@ -126,6 +254,7 @@ if (userTasks.length === 0) {
   table.classList.add("d-none");
 
   const makeAtask = document.createElement("div");
+  makeAtask.id = "makeAtask"
   makeAtask.innerHTML = `
   Crie sua primeira Tarefa acima!
   `;
@@ -133,60 +262,11 @@ if (userTasks.length === 0) {
 
   taskArea.appendChild(makeAtask);
 
+} else {
+  populateTable();
 }
 
-
-userTasks.forEach(t => {
-
-  const day1 = `${t.startDay.replaceAll("-", ",")},${t.startTime.replaceAll("-", ",")}`;
-  const day2 = `${t.endDay.replaceAll("-", ",")}, ${t.endTime.replaceAll("-", ",")}`;
-  const startDate = new Date(day1);
-  const endDate = new Date(day2);
-  const nowDate = new Date();
-
-  const startDateInput = t.startDay.replaceAll("-", "");
-  const startY = startDateInput.slice(0, 4);
-  const startM = startDateInput.slice(4, 6);
-  const startD = startDateInput.slice(6, 8);
-  const endDateInput = t.endDay.replaceAll("-", "");
-  const endY = endDateInput.slice(0, 4);
-  const endM = endDateInput.slice(4, 6);
-  const endD = endDateInput.slice(6, 8);
-
-  const newTr = document.createElement("tr");
-
-  newTr.innerHTML = `
-    <td class="tr-tarefa" data-bs-toggle="modal" data-bs-target="#modal-description" description="${t.description}">
-        ${t.task}
-    </td>
-    <td>${startD}/${startM}/${startY} às ${t.startTime}</td>
-    <td>${endD}/${endM}/${endY} às ${t.endTime}</td>
-    <td></td>
-    <td><button class="btn btn-light update-task-btn" tr-id="${t.id}" onclick="clickEditFunction(this)">Alterar</button></td>
-  `;
-
-
-  newTr.id = t.id;
-
-  const status = newTr.querySelector(":nth-child(4)");
-
-  if (status.innerText !== "Realizada") {
-
-    if (startDate > nowDate) {
-      status.innerText = "Pendente";
-    } else if (startDate < nowDate && nowDate < endDate) {
-      status.innerText = "Em andamento";
-    } else {
-      status.innerText = "Em atraso";
-    }
-  }
-
-  taskTableBody.appendChild(newTr);
-});
-
-
-
-exit.addEventListener("click", event => {
+exit.addEventListener("click", () => {
   localStorage.setItem("currentUser", null)
 });
 
@@ -204,18 +284,14 @@ modalDescription.addEventListener("show.bs.modal", event => {
   modalBodyInput.value = description;
 });
 
-createTaskBtn.addEventListener("click", event => {
+createTaskBtn.addEventListener("click", () => {
 
-  const validInputs = validateInputs(task.value, startDay.value, startTime.value, endDay.value, endTime.value, description.value);
+  const validInputs = validateInputs();
 
   if (validInputs) {
-    const day1 = `${startDay.value.replace("-", ",")},${startTime.value.replace("-", ",")}`;
-    const day2 = `${endDay.value.replace("-", ",")}, ${endTime.value.replace("-", ",")}`;
-    const startDate = new Date(day1);
-    const endDate = new Date(day2);
 
-    if (startDate > endDate) {
-      msgCreateTask.textContent = "Por favor entre duas datas validas, pois o dia/horário de término não pode ser igual ou anterior ao de início"
+    if (!validateDateInputs()) {
+      msgCreateTask.textContent = "Por favor entre duas datas validas, pois o dia/horário de término não pode ser igual ou anterior ao de início";
     } else {
 
       const newTask = {
@@ -244,19 +320,19 @@ createTaskBtn.addEventListener("click", event => {
 
 
 
-startDay.addEventListener("change", event => {
+startDay.addEventListener("change", () => {
   msgCreateTask.textContent = ""
 });
 
-startTime.addEventListener("change", event => {
+startTime.addEventListener("change", () => {
   msgCreateTask.textContent = ""
 });
 
-endDay.addEventListener("change", event => {
+endDay.addEventListener("change", () => {
   msgCreateTask.textContent = ""
 });
 
-endTime.addEventListener("change", event => {
+endTime.addEventListener("change", () => {
   msgCreateTask.textContent = ""
 });
 

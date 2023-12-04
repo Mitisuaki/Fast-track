@@ -28,8 +28,8 @@
 
   <nav class="navbar container-fluid">
     <div class=" container-fluid ms-5 me-5 pb-3 justify-content-between border-bottom border-2 navbar-border">
-      <div>
-        <a class="navbar-brand text-white username" href="tasksPage.html"></a>
+      <div id="username-welcome-area" class="overflow-y-auto">
+        <div class=" text-white username" href="tasksPage.html"></div>
       </div>
       <div>
         <a class="navbar-brand text-white btn-sair" href="../index.html">SAIR</a>
@@ -60,7 +60,7 @@
                 placeholder="Tarefa" required>
             </div>
             <div class="mb-3 d-md-flex ">
-              <label for="create-task-start-day test" class="me-2 mb-3 mt-3" id="label-fix">Início:</label>
+              <label for="create-task-start-day" class="me-2 mb-3 mt-3" id="label-fix">Início:</label>
               <input type="date" class="form-control bg-transparent text-white me-2" id="create-task-start-day"
                 placeholder="Dia Início" required>
               <input type="time" class="form-control bg-transparent text-white mt-2 mt-md-0" id="create-task-start-time"

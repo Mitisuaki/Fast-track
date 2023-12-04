@@ -128,3 +128,12 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   min-height: 100px;
   max-height: 200px;
 }
+
+#username-welcome-area {
+  max-height: 90px;
+  max-width: 75%;
+}
+
+.username {
+  font-size: 20px;
+}
